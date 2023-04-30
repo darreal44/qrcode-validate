@@ -63,8 +63,9 @@ app.post('/init', async (req, res) => {
 	console.log(req.body.check)
 	if (req.body.check === password) {
 		const conn = await db.connectDb();
-		const sql =   await conn.run(`delete from user where id = '${req.body.code}'`)
-		const sql1 =   await conn.run(`insert into user (id,name,soiree) values ('${req.body.code}','${req.body.name}',0)`)
+		const sql =   await conn.run(`delete from payment where user_id = '${req.body.code}'`)
+		const sql1 =   await conn.run(`delete from user where id = '${req.body.code}'`)
+		const sql2 =   await conn.run(`insert into user (id,name,soiree) values ('${req.body.code}','${req.body.name}',0)`)
 	}
 	password = Math.random().toString(36).slice(-8);
 	console.log("new password: "+password)
