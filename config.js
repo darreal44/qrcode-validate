@@ -8,7 +8,7 @@ const { open } = require('sqlite')
 
     //console.log("excuted");
     return open({
-            filename: 'linan.db',
+            filename: 'equissima.db',
             driver: sqlite3.Database
         })
 
