@@ -3,6 +3,9 @@ const app  = express()
 const db  = require('./config');
 let port = process.env.PORT || 8000
 
+let password = Math.random().toString(36).slice(-8);
+console.log("password: "+password)
+
 app.use(express.json());
 app.use(express.urlencoded({
     extended: false
@@ -21,6 +24,10 @@ app.get('/admin',  (req, res) => {
 
 app.get('/client',  (req, res) => {
     res.render('client');
+})
+
+app.get('/init', (req, res) => {
+    res.render('init');
 })
 
 app.get('/users/:id', async  (req, res) => {
@@ -47,6 +54,20 @@ app.get('/users/:id', async  (req, res) => {
     } catch (error) {
         console.log(error);
     }
+})
+
+
+app.post('/init', async (req, res) => {
+	console.log(req.body.name)
+	console.log(req.body.code)
+	console.log(req.body.check)
+	if (req.body.check === password) {
+		const conn = await db.connectDb();
+		const sql =   await conn.run(`delete from user where id = '${req.body.code}'`)
+		const sql1 =   await conn.run(`insert into user (id,name,soiree) values ('${req.body.code}','${req.body.name}',0)`)
+	}
+	password = Math.random().toString(36).slice(-8);
+	console.log("new password: "+password)
 })
 
 app.post('/transactions',  async (req, res) => {

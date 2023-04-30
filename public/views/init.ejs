@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gestion des invitations</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="../ui/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+
+   <!-- Toastr -->
+   <link rel="stylesheet" href="../ui/plugins/toastr/toastr.min.css">
+  <link rel="stylesheet" href="../ui/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition layout-top-nav">
+<form name="initForm" action="">
+  <h1>init</h1>
+  <input id="name" type="name" class="form-control" placeholder="Enter Name...">
+  <input id="code" type="code" class="form-control" placeholder="Enter code...">
+  <input id="check" type="check" class="form-control" placeholder="Enter check...">
+  <button type="submit">Submit</button>
+</form>
+<!-- /.modal -->
+
+
+<!-- jQuery -->
+<script src="../ui/plugins/jquery/jquery.min.js"></script>
+<script>
+initForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let name = document.getElementById("name");
+  let code = document.getElementById("code");
+  let check = document.getElementById("check");
+  let form = { 'name': name.value,
+	       'code': code.value,
+	       'check': check.value }
+  if (name.value !== "" && code.value !== "" && check.value !== "") {
+    // perform operation with form input
+    $.ajax({
+        type: "POST",
+        url: "/init",
+        data: form,
+        dataType: 'json'
+      });
+  }
+});
+
+</script>
+
+<style>
+  div {
+      margin-bottom: 16px;
+  }
+
+  #video-container {
+      line-height: 0;
+  }
+
+  #video-container.example-style-1 .scan-region-highlight-svg,
+  #video-container.example-style-1 .code-outline-highlight {
+      stroke: #64a2f3 !important;
+  }
+
+  #video-container.example-style-2 {
+      position: absolute;
+      width: 50px;
+      height: 100%;
+      overflow: hidden;
+  }
+  #video-container.example-style-2 .scan-region-highlight {
+      border-radius: 30px;
+      outline: rgba(0, 0, 0, .25) solid 50vmax;
+  }
+  #video-container.example-style-2 .scan-region-highlight-svg {
+      display: none;
+  }
+  #video-container.example-style-2 .code-outline-highlight {
+      stroke: rgba(255, 255, 255, .5) !important;
+      stroke-width: 15 !important;
+      stroke-dasharray: none !important;
+  }
+
+  #flash-toggle {
+      display: none;
+  }
+
+  hr {
+      margin-top: 32px;
+  }
+  input[type="file"] {
+      display: block;
+      margin-bottom: 16px;
+  }
+</style>
+
+</body>
+</html>
+
